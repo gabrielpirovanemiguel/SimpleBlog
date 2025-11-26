@@ -934,6 +934,7 @@ Crie o arquivo `templates/admin/categorias/cadastro.html`:
 
         <div class="card shadow-sm">
             <form method="POST" action="/admin/categorias/cadastrar">
+                {{ csrf_input() }}
                 <div class="card-body p-4">
                     <div class="row">
                         <div class="col-12">
@@ -1000,6 +1001,7 @@ Crie o arquivo `templates/admin/categorias/editar.html`:
 
         <div class="card shadow-sm">
             <form method="POST" action="/admin/categorias/editar/{{ dados.id if dados is defined and dados.id else categoria.id }}">
+                {{ csrf_input() }}
                 <div class="card-body p-4">
                     <div class="row">
                         <div class="col-12">
@@ -2231,6 +2233,7 @@ Crie o arquivo `templates/artigos/cadastrar.html`:
 
         <div class="card shadow-sm">
             <form method="POST" action="/artigos/cadastrar" id="formArtigo">
+                {{ csrf_input() }}
                 <div class="card-body p-4">
                     <div class="row">
                         <div class="col-12">
@@ -2376,6 +2379,7 @@ Crie o arquivo `templates/artigos/editar.html`:
 
         <div class="card shadow-sm">
             <form method="POST" action="/artigos/editar/{{ artigo.id }}" id="formArtigo">
+                {{ csrf_input() }}
                 <div class="card-body p-4">
                     <div class="row">
                         <div class="col-12">
@@ -3548,7 +3552,6 @@ from repo import (
     artigo_repo,         # NOVO: Repositório de artigos
     usuario_repo,
     configuracao_repo,
-    tarefa_repo,
     chamado_repo,
     chamado_interacao_repo,
     indices_repo,
@@ -3617,7 +3620,6 @@ def create_app() -> FastAPI:
         logger.info("🛠️ Criando/verificando tabelas do banco de dados...")
         usuario_repo.criar_tabela()
         configuracao_repo.criar_tabela()
-        tarefa_repo.criar_tabela()
         chamado_repo.criar_tabela()
         chamado_interacao_repo.criar_tabela()
         chat_sala_repo.criar_tabela()
