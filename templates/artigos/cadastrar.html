@@ -10,6 +10,7 @@
     .EasyMDEContainer .CodeMirror {
         border-radius: 0 0 4px 4px;
     }
+
     .editor-toolbar {
         border-radius: 4px 4px 0 0;
     }
@@ -36,44 +37,44 @@
 
                         <div class="col-md-8 mb-3">
                             {{ field(
-                                name='titulo',
-                                label='Título do Artigo',
-                                type='text',
-                                required=true,
-                                placeholder='Digite um título atrativo para seu artigo...',
-                                help_text='O título deve ter entre 5 e 200 caracteres'
+                            name='titulo',
+                            label='Título do Artigo',
+                            type='text',
+                            required=true,
+                            placeholder='Digite um título atrativo para seu artigo...',
+                            help_text='O título deve ter entre 5 e 200 caracteres'
                             ) }}
                         </div>
 
                         <div class="col-md-4">
                             {% set categorias_dict = {'': 'Selecione uma categoria...'} %}
                             {% for cat in categorias %}
-                                {% set _ = categorias_dict.update({cat.id|string: cat.nome}) %}
+                            {% set _ = categorias_dict.update({cat.id|string: cat.nome}) %}
                             {% endfor %}
                             {{ field(
-                                name='categoria_id',
-                                label='Categoria',
-                                type='select',
-                                required=true,
-                                options=categorias_dict
+                            name='categoria_id',
+                            label='Categoria',
+                            type='select',
+                            required=true,
+                            options=categorias_dict
                             ) }}
                         </div>
 
                         <div class="col-12 mb-3">
                             {{ field(
-                                name='resumo',
-                                label='Resumo',
-                                type='textarea',
-                                required=false,
-                                placeholder='Um breve resumo do artigo que será exibido na listagem...',
-                                help_text='Opcional. Máximo de 500 caracteres.',
-                                rows=2
+                            name='resumo',
+                            label='Resumo',
+                            type='textarea',
+                            required=false,
+                            placeholder='Um breve resumo do artigo que será exibido na listagem...',
+                            help_text='Opcional. Máximo de 500 caracteres.',
+                            rows=2
                             ) }}
                         </div>
 
                         <div class="col-12 mb-3">
                             <label for="conteudo" class="form-label">Conteúdo <span class="text-danger">*</span></label>
-                            <textarea name="conteudo" id="conteudo" required>{{ dados_formulario.conteudo if dados_formulario else '' }}</textarea>
+                            <textarea name="conteudo" id="conteudo" >{{ dados_formulario.conteudo if dados_formulario else '' }}</textarea>
                             <small class="form-text text-muted">
                                 Use Markdown para formatar seu texto. Mínimo de 50 caracteres.
                             </small>
@@ -81,14 +82,14 @@
 
                         <div class="col-md-6">
                             {{ field(
-                                name='status_artigo',
-                                label='Status',
-                                type='select',
-                                options={
-                                    'Rascunho': 'Rascunho - Salvar para continuar depois',
-                                    'Finalizado': 'Finalizado - Pronto para revisão',
-                                    'Publicado': 'Publicado - Visível para todos'
-                                }
+                            name='status_artigo',
+                            label='Status',
+                            type='select',
+                            options={
+                            'Rascunho': 'Rascunho - Salvar para continuar depois',
+                            'Finalizado': 'Finalizado - Pronto para revisão',
+                            'Publicado': 'Publicado - Visível para todos'
+                            }
                             ) }}
                         </div>
                     </div>
@@ -113,7 +114,7 @@
 <!-- EasyMDE - Editor Markdown -->
 <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const easyMDE = new EasyMDE({
             element: document.getElementById('conteudo'),
             spellChecker: false,
@@ -132,6 +133,15 @@
             ],
             status: ['autosave', 'lines', 'words'],
             minHeight: '300px',
+        });
+        // Validação antes de enviar
+        document.getElementById('formArtigo').addEventListener('submit', function (e) {
+            const conteudo = easyMDE.value().trim();
+
+            if (conteudo.length < 50) {
+                e.preventDefault();
+                alert('O conteúdo deve ter pelo menos 50 caracteres.');
+            }
         });
     });
 </script>

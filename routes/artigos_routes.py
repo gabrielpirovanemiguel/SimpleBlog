@@ -71,9 +71,9 @@ async def get_cadastrar(
 async def post_cadastrar(
     request: Request,
     usuario_logado: Optional[dict] = None,
-    titulo: str = Form(""),
-    resumo: str = Form(""),
-    conteudo: str = Form(""),
+    titulo: str = Form(...),
+    resumo: str = Form(...),
+    conteudo: str = Form(...),
     status_artigo: str = Form("Rascunho"),
     categoria_id: int = Form(0),
 ):
