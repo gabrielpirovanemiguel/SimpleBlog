@@ -29,6 +29,7 @@
 
         <div class="card shadow-sm">
             <form method="POST" action="/artigos/cadastrar" id="formArtigo">
+                {{csrf_input()}}
                 <div class="card-body p-4">
                     <div class="row">
                         <div class="col-12">
@@ -74,7 +75,7 @@
 
                         <div class="col-12 mb-3">
                             <label for="conteudo" class="form-label">Conteúdo <span class="text-danger">*</span></label>
-                            <textarea name="conteudo" id="conteudo" >{{ dados_formulario.conteudo if dados_formulario else '' }}</textarea>
+                            <textarea name="conteudo" id="conteudo" required>{{ dados_formulario.conteudo if dados_formulario else '' }}</textarea>
                             <small class="form-text text-muted">
                                 Use Markdown para formatar seu texto. Mínimo de 50 caracteres.
                             </small>
@@ -135,14 +136,14 @@
             minHeight: '300px',
         });
         // Validação antes de enviar
-        document.getElementById('formArtigo').addEventListener('submit', function (e) {
-            const conteudo = easyMDE.value().trim();
+       // document.getElementById('formArtigo').addEventListener('submit', function (e) {
+          //  <!-- const conteudo = easyMDE.value().trim();
 
-            if (conteudo.length < 50) {
-                e.preventDefault();
-                alert('O conteúdo deve ter pelo menos 50 caracteres.');
-            }
-        });
+           // if (conteudo.length < 50) {
+              //  e.preventDefault();
+              //  alert('O conteúdo deve ter pelo menos 50 caracteres.');
+          //  }
+      //  }); -->
     });
 </script>
 {% endblock %}
